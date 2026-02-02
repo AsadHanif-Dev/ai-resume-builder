@@ -98,7 +98,7 @@ export async function rewriteBullets(bullets: string[]) {
     // API key missing or call failed — return original bullets as fallback
     return bullets
   }
-  return output.split('\n').map(s => s.trim()).filter(Boolean)
+  return output.split('\n').map((s: string) => s.trim()).filter(Boolean)
 }
 
 export async function generateSummary(profileText: string) {
