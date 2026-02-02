@@ -24,24 +24,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-[#0f2027] via-[#2c5364] to-[#232526] min-h-screen relative`}> 
-        {/* Futuristic Header */}
-        <header className="w-full py-6 px-8 flex items-center justify-between backdrop-blur-md bg-white/10 border-b border-zinc-800 shadow-lg fixed top-0 left-0 z-50">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-[#0f2027] via-[#2c5364] to-[#232526] min-h-screen`}> 
+        {/* Header */}
+        <header className="w-full py-6 px-8 flex items-center justify-between backdrop-blur-md bg-white/10 border-b border-zinc-800 shadow-lg">
           <div className="flex items-center gap-3">
             <span className="text-2xl font-bold text-cyan-400 drop-shadow-lg tracking-wide">AI Resume Builder</span>
-            <span className="px-2 py-1 rounded bg-gradient-to-r from-cyan-400 to-blue-600 text-white text-xs font-mono ml-2 shadow">Futuristic Edition</span>
           </div>
-          <nav className="flex gap-6 text-sm font-medium">
+          <nav className="flex gap-6 text-sm font-medium text-white">
             <a href="/builder" className="hover:text-cyan-400 transition">Builder</a>
             <a href="/templates" className="hover:text-cyan-400 transition">Templates</a>
             <a href="/pricing" className="hover:text-cyan-400 transition">Pricing</a>
           </nav>
         </header>
-        <main className="pt-24 pb-24">
+        <main className="min-h-screen">
           {children}
         </main>
-        {/* Futuristic Footer */}
-        <footer className="w-full py-8 px-8 bg-white/10 backdrop-blur-md border-t border-zinc-800 shadow-lg fixed bottom-0 left-0 z-50 flex items-center justify-between">
+        {/* Footer */}
+        <footer className="w-full py-8 px-8 bg-white/10 backdrop-blur-md border-t border-zinc-800 shadow-lg flex items-center justify-between">
           <span className="text-xs text-zinc-300">&copy; {new Date().getFullYear()} AI Resume Builder. All rights reserved.</span>
           <span className="text-xs text-cyan-400">Made with Next.js, Tailwind, GPT-4o</span>
         </footer>
