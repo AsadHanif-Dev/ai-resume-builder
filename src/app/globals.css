@@ -19,8 +19,27 @@
   }
 }
 
+
 body {
-  background: var(--background);
+  background: linear-gradient(135deg, #0f2027 0%, #2c5364 50%, #232526 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+.glass {
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.accent {
+  background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+  color: #fff;
+}
+
+.futuristic-shadow {
+  box-shadow: 0 2px 16px 0 rgba(0, 255, 255, 0.15), 0 1.5px 8px 0 rgba(0, 114, 255, 0.12);
 }
