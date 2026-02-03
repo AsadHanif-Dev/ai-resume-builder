@@ -122,7 +122,7 @@ export async function quantifyAchievements(bullets: string[]) {
   const user = `Add quantification or measurable impact where reasonable for these bullets:\n${bullets.join('\n')}`
   const output = await callAI(system, user)
   if (!output) return bullets
-  return output.split('\n').map(s => s.trim()).filter(Boolean)
+  return output.split('\n').map((s: string) => s.trim()).filter(Boolean)
 }
 
 export async function extractKeywordsFromJob(jobDescription: string) {
