@@ -1,52 +1,41 @@
 "use client"
-import React from 'react'
-import { useResumeStore } from '../lib/store'
+import React from "react";
+import { useResumeStore } from "../lib/store";
+import { LayoutTemplate } from "lucide-react";
 
-const templates = [
-  {
-    id: 'modern' as const,
-    name: 'Modern',
-    description: 'Clean design with blue accents',
-    preview: '🎨'
-  },
-  {
-    id: 'minimal' as const,
-    name: 'Minimal',
-    description: 'Elegant simplicity',
-    preview: '✨'
-  },
-  {
-    id: 'classic' as const,
-    name: 'Classic',
-    description: 'Traditional professional',
-    preview: '📋'
-  }
-]
+const templates: { id: "modern" | "minimal" | "classic"; label: string }[] = [
+  { id: "modern",  label: "Modern" },
+  { id: "minimal", label: "Minimal" },
+  { id: "classic", label: "Classic" },
+];
 
 export default function TemplateSelector() {
-  const template = useResumeStore(s => s.resume.template)
-  const setResume = useResumeStore(s => s.setResume)
+  const template = useResumeStore((s) => s.resume.template);
+  const setResume = useResumeStore((s) => s.setResume);
 
   return (
-    <div className="space-y-2">
-      <label className="text-sm font-medium">Template:</label>
-      <div className="grid grid-cols-3 gap-2">
-        {templates.map(t => (
+    <div className="flex items-center gap-2" role="group" aria-label="Select resume template">
+      <LayoutTemplate
+        className="w-3.5 h-3.5 text-[var(--text-4)] flex-shrink-0"
+        strokeWidth={1.75}
+        aria-hidden="true"
+      />
+      <div className="flex rounded-lg border border-[var(--border)] overflow-hidden bg-white shadow-[var(--shadow-xs)]">
+        {templates.map((t) => (
           <button
             key={t.id}
             onClick={() => setResume({ template: t.id })}
-            className={`p-3 rounded-lg border-2 text-center transition-all ${
+            aria-pressed={template === t.id}
+            className={`px-3 py-1.5 text-xs font-medium border-r border-[var(--border)] last:border-0 transition-all ${
               template === t.id
-                ? 'border-blue-600 bg-blue-50 dark:bg-blue-950'
-                : 'border-zinc-200 hover:border-zinc-300'
+                ? "bg-[var(--accent)] text-white"
+                : "text-[var(--text-3)] hover:bg-[var(--border-muted)] hover:text-[var(--text-1)]"
             }`}
           >
-            <div className="text-2xl mb-1">{t.preview}</div>
-            <div className="font-medium text-xs">{t.name}</div>
-            <div className="text-[10px] text-zinc-600 dark:text-zinc-400">{t.description}</div>
+            {t.label}
           </button>
         ))}
       </div>
     </div>
-  )
+  );
 }

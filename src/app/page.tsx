@@ -1,171 +1,330 @@
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-950 text-zinc-900 dark:text-zinc-50">
-      <header className="max-w-7xl mx-auto p-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="text-2xl">📄</div>
-          <h2 className="text-2xl font-semibold">AI Resume Builder</h2>
-        </div>
-        <nav className="flex items-center gap-4">
-          <a href="/builder" className="font-medium hover:text-blue-600">Builder</a>
-          <a href="/chat" className="font-medium hover:text-blue-600">AI Chat</a>
-          <a href="/dashboard" className="font-medium hover:text-blue-600">Dashboard</a>
-          <a href="/templates" className="font-medium hover:text-blue-600">Templates</a>
-          <a href="/pricing" className="font-medium hover:text-blue-600">Pricing</a>
-        </nav>
-      </header>
+import React from "react";
+import Link from "next/link";
+import {
+  Sparkles,
+  Target,
+  FileDown,
+  BrainCircuit,
+  BarChart3,
+  Layers,
+  Check,
+  ArrowRight,
+  ChevronRight,
+} from "lucide-react";
 
-      <main className="max-w-7xl mx-auto px-6 py-16">
-        <section className="grid gap-12 md:grid-cols-2 items-center mb-20">
-          <div>
-            <h1 className="text-5xl font-bold leading-tight mb-4">
-              Build an <span className="text-blue-600">ATS-friendly</span> resume in minutes with AI
-            </h1>
-            <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
-              Rewrite bullets, generate summaries, extract ATS keywords, quantify achievements, and export to PDF — all powered by AI, right in your browser.
-            </p>
-            <div className="mt-8 flex gap-4">
-              <a href="/builder" className="rounded-lg bg-blue-600 text-white px-6 py-3 font-medium hover:bg-blue-700 transition-colors">
-                Get started — it's free
-              </a>
-              <a href="#how" className="rounded-lg border-2 border-zinc-300 dark:border-zinc-700 px-6 py-3 font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-                How it works
-              </a>
+/* ── Mock resume preview ───────────────────────────────────────── */
+function ResumeMockup() {
+  return (
+    <div className="relative w-full max-w-[420px] mx-auto lg:ml-auto">
+      {/* Browser frame */}
+      <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-[0_20px_60px_rgb(0_0_0_/_0.1)]">
+        <div className="h-8 bg-slate-50 border-b border-slate-100 flex items-center px-3 gap-1.5 flex-shrink-0">
+          <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+          <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+          <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
+          <span className="ml-2 text-[10px] text-slate-400 font-mono tracking-tight">
+            resume-preview.pdf
+          </span>
+        </div>
+
+        <div className="p-6 space-y-4 bg-white">
+          {/* Name + title bar */}
+          <div className="border-l-[3px] border-blue-600 pl-3.5">
+            <div className="h-[14px] w-40 bg-slate-900 rounded-sm mb-1.5" />
+            <div className="h-[10px] w-28 bg-blue-500/70 rounded-sm mb-2.5" />
+            <div className="flex gap-3">
+              <div className="h-[8px] w-24 bg-slate-200 rounded-sm" />
+              <div className="h-[8px] w-20 bg-slate-200 rounded-sm" />
             </div>
-            <ul className="mt-10 space-y-3">
-              <li className="flex items-center gap-3">
-                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>AI-powered rewriting & ATS optimization</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>Live preview with multiple professional templates</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span>Save locally, export to PDF, no signup required</span>
-              </li>
-            </ul>
           </div>
-          <div className="rounded-xl border-2 border-zinc-200 dark:border-zinc-800 p-6 bg-white dark:bg-zinc-900 shadow-2xl">
-            <div className="h-[500px] flex items-center justify-center text-zinc-400 bg-zinc-50 dark:bg-zinc-800 rounded-lg">
-              <div className="text-center">
-                <div className="text-6xl mb-4">📄</div>
-                <p className="text-sm">Professional resume preview</p>
-                <a href="/builder" className="mt-4 inline-block text-blue-600 hover:underline">Open builder to try →</a>
+
+          {/* Summary */}
+          <div>
+            <div className="h-[9px] w-20 bg-slate-800 rounded-sm mb-2" />
+            <div className="space-y-1.5">
+              <div className="h-[7px] w-full bg-slate-100 rounded-sm" />
+              <div className="h-[7px] w-[92%] bg-slate-100 rounded-sm" />
+              <div className="h-[7px] w-[85%] bg-slate-100 rounded-sm" />
+            </div>
+          </div>
+
+          {/* Experience */}
+          <div>
+            <div className="h-[9px] w-24 bg-slate-800 rounded-sm mb-2.5" />
+            <div className="flex justify-between items-center mb-1.5">
+              <div className="h-[10px] w-36 bg-slate-700 rounded-sm" />
+              <div className="h-[8px] w-16 bg-slate-200 rounded-sm" />
+            </div>
+            <div className="h-[8px] w-28 bg-blue-400/60 rounded-sm mb-2" />
+            <div className="space-y-1.5 pl-3">
+              <div className="h-[7px] w-full bg-slate-100 rounded-sm" />
+              <div className="h-[7px] w-[90%] bg-slate-100 rounded-sm" />
+              <div className="h-[7px] w-[80%] bg-slate-100 rounded-sm" />
+            </div>
+          </div>
+
+          {/* Skills */}
+          <div>
+            <div className="h-[9px] w-12 bg-slate-800 rounded-sm mb-2.5" />
+            <div className="flex flex-wrap gap-1.5">
+              {[72, 96, 64, 80, 56, 88, 68].map((w, i) => (
+                <div
+                  key={i}
+                  className="h-5 bg-blue-50 border border-blue-100 rounded"
+                  style={{ width: w }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* AI badge */}
+      <div className="absolute -top-3.5 -right-3.5 flex items-center gap-1.5 bg-blue-600 text-white text-[11px] font-semibold px-3 py-1.5 rounded-full shadow-lg shadow-blue-600/25 select-none">
+        <Sparkles className="w-3 h-3" strokeWidth={2} />
+        AI Optimized
+      </div>
+
+      {/* ATS Score badge */}
+      <div className="absolute -bottom-4 -left-4 bg-white border border-slate-200 shadow-md shadow-slate-900/8 rounded-xl px-4 py-2.5 flex items-center gap-3 select-none">
+        <div className="w-9 h-9 rounded-full bg-emerald-50 border-[2.5px] border-emerald-400 flex items-center justify-center flex-shrink-0">
+          <span className="text-[11px] font-bold text-emerald-700 leading-none">94</span>
+        </div>
+        <div>
+          <div className="text-[11px] font-semibold text-slate-800 leading-tight">ATS Score</div>
+          <div className="text-[10px] text-slate-400 leading-tight">Top 5%</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Data ──────────────────────────────────────────────────────── */
+const features = [
+  {
+    icon: Sparkles,
+    title: "AI Bullet Rewriting",
+    description:
+      "Transform generic job duties into quantified, impact-driven achievements with a single click.",
+  },
+  {
+    icon: Target,
+    title: "ATS Optimization",
+    description:
+      "Score your resume against any job description and surface missing keywords instantly.",
+  },
+  {
+    icon: BrainCircuit,
+    title: "Smart Summaries",
+    description:
+      "Generate tailored professional summaries aligned to your target role and seniority level.",
+  },
+  {
+    icon: Layers,
+    title: "Professional Templates",
+    description:
+      "Three pixel-perfect templates — Modern, Minimal, Classic — designed for real hiring managers.",
+  },
+  {
+    icon: FileDown,
+    title: "One-Click PDF Export",
+    description:
+      "Export to PDF without layout shifts or font substitution. Print-ready and ATS-safe every time.",
+  },
+  {
+    icon: BarChart3,
+    title: "Job Match Analysis",
+    description:
+      "Paste any job description and get a detailed keyword match report with actionable suggestions.",
+  },
+];
+
+const steps = [
+  {
+    number: "01",
+    title: "Add your details",
+    description:
+      "Fill in your work history, education, and skills using our guided multi-step editor.",
+  },
+  {
+    number: "02",
+    title: "Let AI optimize",
+    description:
+      "Run AI on your bullets and summary to elevate impact and match target job requirements.",
+  },
+  {
+    number: "03",
+    title: "Export and apply",
+    description:
+      "Pick a template, export a pixel-perfect PDF, and submit your application with confidence.",
+  },
+];
+
+/* ── Page ──────────────────────────────────────────────────────── */
+export default function HomePage() {
+  return (
+    <div className="bg-[var(--bg)]">
+
+      {/* ── Hero ──────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 pt-20 pb-28 grid lg:grid-cols-[1fr_460px] gap-16 items-center">
+        <div className="space-y-8">
+          <span className="badge badge-blue text-[11px] py-1 px-3">
+            <Sparkles className="w-3 h-3" strokeWidth={2} />
+            AI-Powered · ATS-Ready · Always Free
+          </span>
+
+          <div>
+            <h1 className="text-[3.25rem] lg:text-[3.75rem] font-semibold text-[var(--text-1)] leading-[1.08] tracking-[-0.035em]">
+              Build a resume<br />
+              that gets<br />
+              <span className="text-[var(--accent)]">interviews.</span>
+            </h1>
+            <p className="mt-5 text-[1.0625rem] text-[var(--text-3)] leading-[1.7] max-w-[44ch]">
+              AI-powered bullet rewriting, ATS scoring, professional templates,
+              and PDF export — all in your browser, no signup required.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <Link href="/builder" className="btn btn-primary btn-lg">
+              Start building free
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/templates" className="btn btn-secondary btn-lg">
+              View templates
+            </Link>
+          </div>
+
+          <ul className="space-y-2.5" role="list">
+            {[
+              "No account required — works instantly",
+              "Compatible with any job description",
+              "Export to print-ready PDF in one click",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2.5 text-sm text-[var(--text-3)]">
+                <span
+                  className="w-4 h-4 rounded-full bg-[var(--success-bg)] border border-[#BBF7D0] flex items-center justify-center flex-shrink-0"
+                  aria-hidden="true"
+                >
+                  <Check className="w-2.5 h-2.5 text-[var(--success)]" strokeWidth={2.5} />
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <ResumeMockup />
+      </section>
+
+      {/* ── Stats bar ─────────────────────────────────────── */}
+      <div className="border-y border-[var(--border)] bg-white">
+        <div className="max-w-7xl mx-auto px-6 py-7 grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-[var(--border)]">
+          {[
+            { value: "10k+", label: "Resumes created" },
+            { value: "94%",  label: "ATS pass rate" },
+            { value: "3",    label: "Expert templates" },
+            { value: "Free", label: "Always, no catch" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center px-4">
+              <div className="text-2xl font-semibold text-[var(--text-1)] tracking-tight">
+                {stat.value}
+              </div>
+              <div className="text-xs text-[var(--text-4)] mt-0.5">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── How it works ──────────────────────────────────── */}
+      <section id="how-it-works" className="max-w-7xl mx-auto px-6 py-24">
+        <div className="text-center mb-14">
+          <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[var(--accent)] mb-3">
+            Process
+          </p>
+          <h2 className="text-[2rem] font-semibold text-[var(--text-1)] tracking-tight">
+            From draft to offer-ready in minutes
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-10">
+          {steps.map((step, i) => (
+            <div key={step.number} className="relative flex items-start gap-4">
+              {i < steps.length - 1 && (
+                <div
+                  className="hidden md:block absolute top-[18px] left-[calc(2.25rem+1rem)] right-0 h-px bg-[var(--border)]"
+                  aria-hidden="true"
+                />
+              )}
+              <span className="relative z-10 flex-shrink-0 w-9 h-9 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center text-[11px] font-bold text-[var(--accent)] tracking-wide">
+                {step.number}
+              </span>
+              <div className="pt-1 relative z-10 bg-[var(--bg)] pr-4">
+                <h3 className="text-[0.9375rem] font-semibold text-[var(--text-1)] mb-1.5">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-[var(--text-3)] leading-relaxed">
+                  {step.description}
+                </p>
               </div>
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
+      </section>
 
-        <section id="how" className="mb-20">
-          <h3 className="text-3xl font-semibold mb-8 text-center">How it works</h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-6 bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700">
-              <div className="text-4xl mb-4">✍️</div>
-              <h4 className="font-semibold text-xl mb-2">1. Enter your info</h4>
-              <p className="text-zinc-600 dark:text-zinc-400">
-                Add your experiences, education, and skills. Upload an existing resume or start from scratch.
-              </p>
-            </div>
-            <div className="p-6 bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700">
-              <div className="text-4xl mb-4">🤖</div>
-              <h4 className="font-semibold text-xl mb-2">2. Let AI optimize</h4>
-              <p className="text-zinc-600 dark:text-zinc-400">
-                Use AI to rewrite bullets, generate summaries, and tailor content to job descriptions for better ATS scores.
-              </p>
-            </div>
-            <div className="p-6 bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700">
-              <div className="text-4xl mb-4">📥</div>
-              <h4 className="font-semibold text-xl mb-2">3. Export & apply</h4>
-              <p className="text-zinc-600 dark:text-zinc-400">
-                Choose from professional templates, export to PDF, and start applying with confidence.
-              </p>
-            </div>
+      {/* ── Features ──────────────────────────────────────── */}
+      <section className="bg-white border-y border-[var(--border)]">
+        <div className="max-w-7xl mx-auto px-6 py-24">
+          <div className="text-center mb-14">
+            <p className="text-[11px] font-semibold tracking-[0.1em] uppercase text-[var(--accent)] mb-3">
+              Features
+            </p>
+            <h2 className="text-[2rem] font-semibold text-[var(--text-1)] tracking-tight">
+              Everything you need, nothing you don&apos;t
+            </h2>
           </div>
-        </section>
 
-        <section className="mb-20">
-          <h3 className="text-3xl font-semibold mb-8 text-center">Features</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              { icon: '🎯', title: 'ATS Optimization', desc: 'Score and optimize your resume for Applicant Tracking Systems' },
-              { icon: '✨', title: 'AI Rewriting', desc: 'Transform bullets into impact-driven achievements' },
-              { icon: '📊', title: 'Job Matching', desc: 'Tailor your resume to specific job descriptions' },
-              { icon: '💾', title: 'Version Control', desc: 'Save and manage multiple resume versions' },
-              { icon: '🎨', title: 'Templates', desc: 'Choose from Modern, Minimal, and Classic designs' },
-              { icon: '💬', title: 'AI Chat', desc: 'Get personalized resume advice from AI assistant' }
-            ].map((feature, i) => (
-              <div key={i} className="flex gap-4 p-4 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-                <div className="text-3xl">{feature.icon}</div>
-                <div>
-                  <h4 className="font-semibold mb-1">{feature.title}</h4>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">{feature.desc}</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {features.map((feature) => (
+              <div
+                key={feature.title}
+                className="p-6 rounded-xl border border-[var(--border)] hover:border-[var(--accent-border)] hover:shadow-[var(--shadow)] transition-all duration-200 bg-white group cursor-default"
+              >
+                <div className="w-9 h-9 rounded-lg bg-[var(--accent-bg)] border border-[var(--accent-border)] flex items-center justify-center mb-4">
+                  <feature.icon
+                    className="w-[18px] h-[18px] text-[var(--accent)]"
+                    strokeWidth={1.75}
+                  />
                 </div>
+                <h3 className="text-sm font-semibold text-[var(--text-1)] mb-1.5">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-[var(--text-3)] leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
-        </section>
-
-        <section id="pricing" className="text-center mb-20">
-          <h3 className="text-3xl font-semibold mb-4">Simple, transparent pricing</h3>
-          <p className="text-zinc-600 dark:text-zinc-300 mb-8 max-w-2xl mx-auto">
-            This app is completely free to use. All features (editor, templates, local storage, PDF export) are available at no cost. Bring your own OpenAI API key for AI features.
-          </p>
-          <div className="max-w-md mx-auto p-8 bg-white dark:bg-zinc-800 rounded-xl border-2 border-blue-600">
-            <h4 className="font-semibold text-2xl mb-2">Free Forever</h4>
-            <div className="text-4xl font-bold text-blue-600 mb-4">$0</div>
-            <ul className="text-left space-y-2 mb-6">
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                Unlimited resumes
-              </li>
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                All templates
-              </li>
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                PDF export
-              </li>
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                AI features (BYO API key)
-              </li>
-              <li className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                No signup required
-              </li>
-            </ul>
-            <a href="/builder" className="block w-full py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
-              Start Building
-            </a>
-          </div>
-        </section>
-      </main>
-
-      <footer className="border-t border-zinc-200 dark:border-zinc-800 py-8">
-        <div className="max-w-7xl mx-auto px-6 text-center text-sm text-zinc-600 dark:text-zinc-400">
-          <p>Built with Next.js, TypeScript, and OpenAI • Open source & free to use</p>
-          <p className="mt-2">Deploy to Vercel in one click</p>
         </div>
-      </footer>
+      </section>
+
+      {/* ── CTA ───────────────────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-6 py-28 text-center">
+        <h2 className="text-[2rem] font-semibold text-[var(--text-1)] tracking-tight mb-4">
+          Ready to land your next role?
+        </h2>
+        <p className="text-[var(--text-3)] mb-8 max-w-[44ch] mx-auto text-[1.0625rem] leading-relaxed">
+          Join thousands of job seekers who&apos;ve built better resumes with
+          Resume.ai.
+        </p>
+        <Link href="/builder" className="btn btn-primary btn-lg inline-flex">
+          Open the builder
+          <ChevronRight className="w-4 h-4" />
+        </Link>
+        <p className="mt-4 text-xs text-[var(--text-4)]">
+          No account. No credit card. No catch.
+        </p>
+      </section>
     </div>
-  )
+  );
 }

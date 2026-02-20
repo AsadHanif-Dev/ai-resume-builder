@@ -1,60 +1,141 @@
-import React from 'react'
-import { Resume } from '../../lib/types'
-import { formatDate } from '../../lib/utils'
+import React from "react";
+import { Resume } from "../../lib/types";
+import { formatDate } from "../../lib/utils";
 
+/** Modern template â€” left-rule accent, tight spacing, inline skill tags */
 export default function ModernTemplate({ resume }: { resume: Resume }) {
   return (
-    <div className="bg-white p-8 shadow-sm max-w-[8.5in] mx-auto" style={{ minHeight: '11in' }}>
-      {/* Header with accent bar */}
-      <div className="border-l-4 border-blue-600 pl-4 mb-6">
-        <h1 className="text-3xl font-bold text-zinc-900">{resume.name}</h1>
-        {resume.professionalTitle && (
-          <p className="text-lg text-blue-600 font-medium mt-1">{resume.professionalTitle}</p>
-        )}
-        <div className="flex flex-wrap gap-3 mt-2 text-sm text-zinc-600">
-          {resume.email && <span>{resume.email}</span>}
-          {resume.phone && <span>• {resume.phone}</span>}
-          {resume.location && <span>• {resume.location}</span>}
-        </div>
-        <div className="flex flex-wrap gap-3 mt-1 text-sm text-zinc-600">
-          {resume.linkedin && <a href={resume.linkedin} className="hover:text-blue-600">LinkedIn</a>}
-          {resume.github && <a href={resume.github} className="hover:text-blue-600">• GitHub</a>}
-          {resume.portfolio && <a href={resume.portfolio} className="hover:text-blue-600">• Portfolio</a>}
-        </div>
-      </div>
+    <div
+      className="bg-white"
+      style={{
+        fontFamily: "'Geist', 'Inter', system-ui, sans-serif",
+        fontSize: "10.5pt",
+        lineHeight: "1.45",
+        color: "#111827",
+        padding: "0.6in 0.65in",
+        minHeight: "11in",
+        maxWidth: "8.5in",
+        margin: "0 auto",
+      }}
+    >
+      {/* â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <header
+        style={{
+          borderLeft: "3px solid #2563EB",
+          paddingLeft: "0.6rem",
+          marginBottom: "1.1rem",
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "20pt",
+            fontWeight: 700,
+            letterSpacing: "-0.03em",
+            lineHeight: 1.1,
+            color: "#0F172A",
+            margin: 0,
+          }}
+        >
+          {resume.name}
+        </h1>
 
-      {/* Summary */}
+        {resume.professionalTitle && (
+          <p
+            style={{
+              fontSize: "10.5pt",
+              fontWeight: 500,
+              color: "#2563EB",
+              margin: "3px 0 6px",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {resume.professionalTitle}
+          </p>
+        )}
+
+        <div
+          style={{
+            fontSize: "8.5pt",
+            color: "#64748B",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "0.4rem",
+          }}
+        >
+          {[resume.email, resume.phone, resume.location]
+            .filter(Boolean)
+            .map((item, i, arr) => (
+              <span key={i}>
+                {item}
+                {i < arr.length - 1 && (
+                  <span style={{ margin: "0 0.3rem", opacity: 0.4 }}>Â·</span>
+                )}
+              </span>
+            ))}
+        </div>
+
+        {(resume.linkedin || resume.github || resume.portfolio) && (
+          <div
+            style={{
+              fontSize: "8.5pt",
+              color: "#2563EB",
+              marginTop: "3px",
+              display: "flex",
+              gap: "1rem",
+            }}
+          >
+            {resume.linkedin && <span>{resume.linkedin}</span>}
+            {resume.github && <span>{resume.github}</span>}
+            {resume.portfolio && <span>{resume.portfolio}</span>}
+          </div>
+        )}
+      </header>
+
+      {/* â”€â”€ Section heading helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* Inline component pattern for consistent section headers */}
+
+      {/* â”€â”€ Summary â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.summary && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-2 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Professional Summary
-          </h2>
-          <p className="text-sm text-zinc-700 leading-relaxed">{resume.summary}</p>
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Professional Summary</SectionHeading>
+          <p style={{ fontSize: "9.5pt", color: "#374151", lineHeight: "1.55", margin: 0 }}>
+            {resume.summary}
+          </p>
         </section>
       )}
 
-      {/* Experience */}
+      {/* â”€â”€ Experience â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.experiences.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-3 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Experience
-          </h2>
-          {resume.experiences.map(exp => (
-            <div key={exp.id} className="mb-4">
-              <div className="flex justify-between items-start mb-1">
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Experience</SectionHeading>
+          {resume.experiences.map((exp, i) => (
+            <div key={exp.id} style={{ marginBottom: i < resume.experiences.length - 1 ? "0.75rem" : 0 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "1px" }}>
                 <div>
-                  <h3 className="text-base font-semibold text-zinc-900">{exp.title}</h3>
-                  <p className="text-sm font-medium text-blue-600">{exp.company}</p>
+                  <span style={{ fontWeight: 600, fontSize: "10pt", color: "#0F172A" }}>
+                    {exp.title}
+                  </span>
+                  {exp.company && (
+                    <span style={{ fontSize: "9.5pt", color: "#2563EB", marginLeft: "0.4rem" }}>
+                      â€” {exp.company}
+                    </span>
+                  )}
                 </div>
-                <div className="text-right text-sm text-zinc-600">
-                  {exp.startDate && <div>{formatDate(exp.startDate)} - {exp.endDate ? formatDate(exp.endDate) : 'Present'}</div>}
-                  {exp.location && <div>{exp.location}</div>}
-                </div>
+                <span style={{ fontSize: "8.5pt", color: "#94A3B8", whiteSpace: "nowrap", marginLeft: "1rem" }}>
+                  {exp.startDate && `${formatDate(exp.startDate)} â€“ ${exp.endDate ? formatDate(exp.endDate) : "Present"}`}
+                  {exp.location && ` Â· ${exp.location}`}
+                </span>
               </div>
+
               {exp.bullets.length > 0 && (
-                <ul className="list-disc ml-5 mt-2 space-y-1">
-                  {exp.bullets.filter(b => b.trim()).map((bullet, i) => (
-                    <li key={i} className="text-sm text-zinc-700">{bullet}</li>
+                <ul style={{ margin: "4px 0 0 0", paddingLeft: "1.1rem", listStyleType: "disc" }}>
+                  {exp.bullets.filter((b) => b.trim()).map((bullet, bi) => (
+                    <li
+                      key={bi}
+                      style={{ fontSize: "9.5pt", color: "#374151", lineHeight: "1.5", marginBottom: "2px" }}
+                    >
+                      {bullet.replace(/^[â€¢\-â€“â€”]\s*/, "")}
+                    </li>
                   ))}
                 </ul>
               )}
@@ -63,39 +144,57 @@ export default function ModernTemplate({ resume }: { resume: Resume }) {
         </section>
       )}
 
-      {/* Education */}
+      {/* â”€â”€ Education â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.education.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-3 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Education
-          </h2>
-          {resume.education.map(edu => (
-            <div key={edu.id} className="mb-3">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-base font-semibold text-zinc-900">{edu.school}</h3>
-                  {edu.degree && <p className="text-sm text-zinc-700">{edu.degree}</p>}
-                </div>
-                {(edu.startDate || edu.endDate) && (
-                  <div className="text-sm text-zinc-600">
-                    {formatDate(edu.startDate)} - {formatDate(edu.endDate)}
-                  </div>
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Education</SectionHeading>
+          {resume.education.map((edu) => (
+            <div
+              key={edu.id}
+              style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.35rem" }}
+            >
+              <div>
+                <span style={{ fontWeight: 600, fontSize: "10pt", color: "#0F172A" }}>
+                  {edu.school}
+                </span>
+                {edu.degree && (
+                  <span style={{ fontSize: "9.5pt", color: "#475569", marginLeft: "0.4rem" }}>
+                    â€” {edu.degree}
+                  </span>
+                )}
+                {edu.gpa && (
+                  <span style={{ fontSize: "8.5pt", color: "#94A3B8", marginLeft: "0.4rem" }}>
+                    GPA {edu.gpa}
+                  </span>
                 )}
               </div>
+              {(edu.startDate || edu.endDate) && (
+                <span style={{ fontSize: "8.5pt", color: "#94A3B8", whiteSpace: "nowrap", marginLeft: "1rem" }}>
+                  {formatDate(edu.startDate)} â€“ {formatDate(edu.endDate)}
+                </span>
+              )}
             </div>
           ))}
         </section>
       )}
 
-      {/* Skills */}
+      {/* â”€â”€ Skills â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.skills.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-2 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Skills
-          </h2>
-          <div className="flex flex-wrap gap-2 mt-2">
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Skills</SectionHeading>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "4px" }}>
             {resume.skills.map((skill, i) => (
-              <span key={i} className="px-3 py-1 bg-blue-50 text-blue-700 text-sm rounded-md">
+              <span
+                key={i}
+                style={{
+                  fontSize: "8.5pt",
+                  padding: "2px 8px",
+                  background: "#EFF6FF",
+                  color: "#1E40AF",
+                  borderRadius: "4px",
+                  border: "1px solid #BFDBFE",
+                }}
+              >
                 {skill}
               </span>
             ))}
@@ -103,124 +202,162 @@ export default function ModernTemplate({ resume }: { resume: Resume }) {
         </section>
       )}
 
-      {/* Projects */}
+      {/* â”€â”€ Projects â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.projects.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-3 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Projects
-          </h2>
-          {resume.projects.map(proj => (
-            <div key={proj.id} className="mb-3">
-              <h3 className="text-base font-semibold text-zinc-900">{proj.name}</h3>
-              {proj.description && <p className="text-sm text-zinc-700 mt-1">{proj.description}</p>}
-              {proj.techStack && <p className="text-sm text-blue-600 mt-1"><strong>Tech:</strong> {proj.techStack}</p>}
-              {proj.outcome && <p className="text-sm text-zinc-700 mt-1"><strong>Outcome:</strong> {proj.outcome}</p>}
-              {proj.link && (
-                <a href={proj.link} className="text-sm text-blue-600 hover:underline mt-1 inline-block">
-                  {proj.link}
-                </a>
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Projects</SectionHeading>
+          {resume.projects.map((proj) => (
+            <div key={proj.id} style={{ marginBottom: "0.6rem" }}>
+              <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem", flexWrap: "wrap" }}>
+                <span style={{ fontWeight: 600, fontSize: "10pt", color: "#0F172A" }}>
+                  {proj.name}
+                </span>
+                {proj.techStack && (
+                  <span style={{ fontSize: "8.5pt", color: "#64748B" }}>
+                    {proj.techStack}
+                  </span>
+                )}
+              </div>
+              {proj.description && (
+                <p style={{ fontSize: "9.5pt", color: "#374151", margin: "2px 0", lineHeight: "1.5" }}>
+                  {proj.description}
+                </p>
+              )}
+              {proj.outcome && (
+                <p style={{ fontSize: "9pt", color: "#475569", margin: "1px 0" }}>
+                  <strong>Outcome:</strong> {proj.outcome}
+                </p>
               )}
             </div>
           ))}
         </section>
       )}
 
-      {/* Certifications */}
+      {/* â”€â”€ Certifications â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.certifications.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-3 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Certifications
-          </h2>
-          {resume.certifications.map(cert => (
-            <div key={cert.id} className="mb-2">
-              <div className="flex justify-between items-baseline">
-                <h3 className="text-base font-semibold text-zinc-900">{cert.name}</h3>
-                {cert.year && <span className="text-sm text-zinc-600">{cert.year}</span>}
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Certifications</SectionHeading>
+          {resume.certifications.map((cert) => (
+            <div
+              key={cert.id}
+              style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.3rem" }}
+            >
+              <div>
+                <span style={{ fontWeight: 600, fontSize: "9.5pt", color: "#0F172A" }}>{cert.name}</span>
+                <span style={{ fontSize: "9pt", color: "#64748B", marginLeft: "0.4rem" }}>â€” {cert.issuer}</span>
               </div>
-              <p className="text-sm text-zinc-700">{cert.issuer}</p>
-              {cert.link && <a href={cert.link} className="text-sm text-blue-600 hover:underline">Verify</a>}
+              {cert.year && (
+                <span style={{ fontSize: "8.5pt", color: "#94A3B8" }}>{cert.year}</span>
+              )}
             </div>
           ))}
         </section>
       )}
 
-      {/* Achievements */}
+      {/* â”€â”€ Achievements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.achievements.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-3 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Achievements & Awards
-          </h2>
-          {resume.achievements.map(ach => (
-            <div key={ach.id} className="mb-2">
-              <div className="flex justify-between items-baseline">
-                <h3 className="text-base font-semibold text-zinc-900">{ach.title}</h3>
-                {ach.year && <span className="text-sm text-zinc-600">{ach.year}</span>}
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Achievements &amp; Awards</SectionHeading>
+          {resume.achievements.map((ach) => (
+            <div key={ach.id} style={{ marginBottom: "0.3rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <span style={{ fontWeight: 600, fontSize: "9.5pt", color: "#0F172A" }}>{ach.title}</span>
+                {ach.year && <span style={{ fontSize: "8.5pt", color: "#94A3B8" }}>{ach.year}</span>}
               </div>
-              {ach.description && <p className="text-sm text-zinc-700">{ach.description}</p>}
+              {ach.description && (
+                <p style={{ fontSize: "9pt", color: "#374151", margin: "1px 0" }}>{ach.description}</p>
+              )}
             </div>
           ))}
         </section>
       )}
 
-      {/* Languages */}
+      {/* â”€â”€ Languages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.languages.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-2 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Languages
-          </h2>
-          <div className="flex flex-wrap gap-3 mt-2">
-            {resume.languages.map(lang => (
-              <span key={lang.id} className="text-sm text-zinc-700">
-                <strong>{lang.name}</strong> — {lang.proficiency}
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Languages</SectionHeading>
+          <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
+            {resume.languages.map((lang) => (
+              <span key={lang.id} style={{ fontSize: "9.5pt", color: "#374151" }}>
+                <strong>{lang.name}</strong>
+                <span style={{ color: "#94A3B8" }}> â€” {lang.proficiency}</span>
               </span>
             ))}
           </div>
         </section>
       )}
 
-      {/* Publications */}
+      {/* â”€â”€ Publications â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.publications.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-3 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Publications
-          </h2>
-          {resume.publications.map(pub => (
-            <div key={pub.id} className="mb-2">
-              <h3 className="text-base font-semibold text-zinc-900">{pub.title}</h3>
-              <p className="text-sm text-zinc-700">
-                {pub.publisher && `${pub.publisher}`}
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Publications</SectionHeading>
+          {resume.publications.map((pub) => (
+            <div key={pub.id} style={{ marginBottom: "0.4rem" }}>
+              <span style={{ fontWeight: 600, fontSize: "9.5pt", color: "#0F172A" }}>{pub.title}</span>
+              <span style={{ fontSize: "9pt", color: "#64748B" }}>
+                {pub.publisher && ` â€” ${pub.publisher}`}
                 {pub.year && ` (${pub.year})`}
-              </p>
-              {pub.link && <a href={pub.link} className="text-sm text-blue-600 hover:underline">View Publication</a>}
+              </span>
             </div>
           ))}
         </section>
       )}
 
-      {/* Volunteer Experience */}
+      {/* â”€â”€ Volunteer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       {resume.volunteerExperiences.length > 0 && (
-        <section className="mb-6">
-          <h2 className="text-lg font-bold text-zinc-900 mb-3 uppercase tracking-wide border-b-2 border-blue-600 pb-1">
-            Volunteer Experience
-          </h2>
-          {resume.volunteerExperiences.map(vol => (
-            <div key={vol.id} className="mb-3">
-              <div className="flex justify-between items-start mb-1">
+        <section style={{ marginBottom: "1rem" }}>
+          <SectionHeading>Volunteer Experience</SectionHeading>
+          {resume.volunteerExperiences.map((vol) => (
+            <div key={vol.id} style={{ marginBottom: "0.5rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                 <div>
-                  <h3 className="text-base font-semibold text-zinc-900">{vol.role}</h3>
-                  <p className="text-sm font-medium text-blue-600">{vol.organization}</p>
+                  <span style={{ fontWeight: 600, fontSize: "10pt", color: "#0F172A" }}>{vol.role}</span>
+                  <span style={{ fontSize: "9.5pt", color: "#2563EB", marginLeft: "0.4rem" }}>â€” {vol.organization}</span>
                 </div>
                 {(vol.startDate || vol.endDate) && (
-                  <div className="text-sm text-zinc-600">
-                    {formatDate(vol.startDate)} - {vol.endDate ? formatDate(vol.endDate) : 'Present'}
-                  </div>
+                  <span style={{ fontSize: "8.5pt", color: "#94A3B8", whiteSpace: "nowrap" }}>
+                    {formatDate(vol.startDate)} â€“ {vol.endDate ? formatDate(vol.endDate) : "Present"}
+                  </span>
                 )}
               </div>
-              {vol.description && <p className="text-sm text-zinc-700">{vol.description}</p>}
+              {vol.description && (
+                <p style={{ fontSize: "9.5pt", color: "#374151", margin: "2px 0", lineHeight: "1.5" }}>
+                  {vol.description}
+                </p>
+              )}
             </div>
           ))}
         </section>
       )}
     </div>
-  )
+  );
+}
+
+/* â”€â”€ Shared section heading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "0.5rem",
+        marginBottom: "0.5rem",
+      }}
+    >
+      <h2
+        style={{
+          fontSize: "8pt",
+          fontWeight: 700,
+          textTransform: "uppercase",
+          letterSpacing: "0.08em",
+          color: "#0F172A",
+          margin: 0,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {children}
+      </h2>
+      <div style={{ height: "1px", background: "#E2E8F0", flex: 1 }} />
+    </div>
+  );
 }
